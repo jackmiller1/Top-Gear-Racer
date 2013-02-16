@@ -37,7 +37,7 @@ THREE.Car = function () {
 
     this.MAX_SPEED_MPH = 200;
 
-	this.MAX_WHEEL_ROTATION = .4;
+	this.MAX_WHEEL_ROTATION = .5;
 	this.WHEEL_ANGULAR_ACCELERATION = .4;
 	this.MIN_ANGLUAR_ACCELERATION = .01;
 
@@ -137,13 +137,11 @@ THREE.Car = function () {
 		
 		if ( controls.moveForward ) {
 			accel = this.FRONT_ACCELERATION;
-			if(Math.abs(this.speed /this.MAX_SPEED) < .5)
-				accel = accel / Math.abs((this.speed +1)/this.MAX_SPEED);
-			if(this.wheelOrientation < .2 || Math.abs(this.speed /this.MAX_SPEED) < .35 ){
-				this.speed = THREE.Math.clamp( this.speed + delta * accel, this.MAX_REVERSE_SPEED, this.MAX_SPEED );
-				this.acceleration = THREE.Math.clamp( this.acceleration + delta, -1, 1 );
+			
+			this.speed = THREE.Math.clamp( this.speed + delta * accel, this.MAX_REVERSE_SPEED, this.MAX_SPEED );
+			this.acceleration = THREE.Math.clamp( this.acceleration + delta, -1, 1 );
 			}
-		}
+		
 
 		if ( controls.moveBackward ) {
 
@@ -152,22 +150,24 @@ THREE.Car = function () {
 
 		}
 		
-		angAccel = this.WHEEL_ANGULAR_ACCELERATION;
-		//if(Math.abs(this.speed /this.MAX_SPEED) > .7)
-		angAccel = angAccel *  Math.pow((1.6-Math.abs(this.speed /this.MAX_SPEED)), 2);
-	/*	
-		if(controls.backWard)
-			angAccel = angAccel * 1.3;
-		*/
-		
-		if ( controls.moveLeft ) {				
-			this.wheelOrientation = THREE.Math.clamp( this.wheelOrientation + delta * angAccel, - this.MAX_WHEEL_ROTATION, this.MAX_WHEEL_ROTATION );
+		maxW = this.MAX_WHEEL_ROTATION;
 
+		
+		if(controls.moveForward || controls.moveBackward)
+			maxW = maxW/2;
+		
+		aa = this.WHEEL_ANGULAR_ACCELERATION;
+		
+		if ( controls.moveLeft ) {	
+			if(this.wheelOrientation < 0)
+				aa = aa * 10;
+			this.wheelOrientation = THREE.Math.clamp( this.wheelOrientation + delta * aa, - this.MAX_WHEEL_ROTATION, maxW );
 		}
 
 		if ( controls.moveRight ) {
-			this.wheelOrientation = THREE.Math.clamp( this.wheelOrientation - delta * angAccel, - this.MAX_WHEEL_ROTATION, this.MAX_WHEEL_ROTATION );
-
+			if(this.wheelOrientation > 0)
+				aa = aa * 10;
+			this.wheelOrientation = THREE.Math.clamp( this.wheelOrientation - delta * aa, - this.MAX_WHEEL_ROTATION, maxW);
 		}
 
 		// speed decay

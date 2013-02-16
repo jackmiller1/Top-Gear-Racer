@@ -195,10 +195,13 @@ the other one with 6 steps and 6 digits*/
 	font-family: 'digital';
 	src: url('http://thecodeplayer.com/uploads/fonts/DS-DIGI.TTF');
 	
-}</style>
+}
+
+</style>
 
 <!-- Add a body and add a title -->
 <body style="margin:0;padding:0;overflow:'hidden';">
+<div id="left_panel" style="float:left; width: 20%; background-color:black; height: 100%; position: absolute"></div>
 <div id="speedometer"></div>
 
 <div id="map_key">
@@ -208,7 +211,6 @@ the other one with 6 steps and 6 digits*/
 
 
 <div id="info" style="z-index: 2">
-	
 	
 
 <!-- We will replicate the digits now -->
@@ -340,7 +342,7 @@ var j=$.noConflict(true);
 		// ## The Lights
 	
 		// Here we setup the lights. We put one ambient and 2 directional lights.
-
+	
 		tQuery.createAmbientLight().addTo(world).color(0xFFFFFF);
 		tQuery.createDirectionalLight().addTo(world).position(1,1,-1).color(0xffffff).intensity(2);
 	
