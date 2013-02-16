@@ -211,7 +211,7 @@ THREE.Car = function () {
 		// car update
 
 		var forwardDelta = this.speed * delta;
-        j('#testJquery').html(this.wheelOrientation);//(thi) * (this.speed / this.MAX_SPEED));
+        //j('#testJquery').html(this.wheelOrientation);//(thi) * (this.speed / this.MAX_SPEED));
 		/*if(Math.random() < .001)
 		{
 			alert(this.root.position.x+","+this.root.position.z);
@@ -270,6 +270,9 @@ THREE.Car = function () {
         
         j('#car_in_key').css('left', (this.root.position.x + 200));
         j('#car_in_key').css('top', ((this.root.position.z/240)*103 )+98);
+        
+        var positionString = 'X: ' + this.root.position.x + '<br> Y: ' + this.root.position.y + '<br> Z: ' + this.root.position.z;
+        j('#testJquery').html(positionString);
 	};
 
 	// internal helper methods
