@@ -26,17 +26,24 @@ THREE.Car = function () {
 
 	// car "feel" parameters
 
-	this.MAX_SPEED = 2200;
+	this.putToStart = true;
+	
+	this.STARTING_X = 62.85;
+	this.STARTING_Z = -184.57;
+	this.STARTING_DIRECTION = (-53/180)*Math.PI;
+	
+	this.MAX_SPEED = 5000;
 	this.MAX_REVERSE_SPEED = -1500;
 
     this.MAX_SPEED_MPH = 200;
 
-	this.MAX_WHEEL_ROTATION = 0.6;
+	this.MAX_WHEEL_ROTATION = .5;
+	this.WHEEL_ANGULAR_ACCELERATION = .5;
+	this.MIN_ANGLUAR_ACCELERATION = .1;
 
-	this.FRONT_ACCELERATION = 1250;
-	this.BACK_ACCELERATION = 1500;
+	this.FRONT_ACCELERATION = 2500;
+	this.BACK_ACCELERATION = 5000;
 
-	this.WHEEL_ANGULAR_ACCELERATION = 1.5;
 
 	this.FRONT_DECCELERATION = 750;
 	this.WHEEL_ANGULAR_DECCELERATION = 1.0;
@@ -52,11 +59,14 @@ THREE.Car = function () {
 	this.acceleration = 0;
 
 	this.wheelOrientation = 0;
-	this.carOrientation = 0;
+	this.carOrientation = this.STARTING_DIRECTION;
 
 	// car rigging
 
 	this.root = new THREE.Object3D();
+	this.root.position.x = this.STARTING_X;
+	this.root.position.y = 0;
+	this.root.position.z = this.STARTING_Z;
 
 	this.frontLeftWheelRoot = new THREE.Object3D();
 	this.frontRightWheelRoot = new THREE.Object3D();
@@ -136,21 +146,24 @@ THREE.Car = function () {
 
 		if ( controls.moveBackward ) {
 
-
 			this.speed = THREE.Math.clamp( this.speed - delta * this.BACK_ACCELERATION, this.MAX_REVERSE_SPEED, this.MAX_SPEED );
 			this.acceleration = THREE.Math.clamp( this.acceleration - delta, -1, 1 );
 
 		}
-
+		angAccel = this.WHEEL_ANGULAR_ACCELERATION * (this.wheelOrientation / this.MAX_WHEEL_ROTATION);
+		if(angAccel < this.MIN_ANGLUAR_ACCELERATION)
+			angAccel = this.MIN_ANGLUAR_ACCELERATION;
+		
+		
+		
 		if ( controls.moveLeft ) {
 
-			this.wheelOrientation = THREE.Math.clamp( this.wheelOrientation + delta * this.WHEEL_ANGULAR_ACCELERATION, - this.MAX_WHEEL_ROTATION, this.MAX_WHEEL_ROTATION );
+			this.wheelOrientation = THREE.Math.clamp( this.wheelOrientation + delta * angAccel, - this.MAX_WHEEL_ROTATION, this.MAX_WHEEL_ROTATION );
 
 		}
 
 		if ( controls.moveRight ) {
-
-			this.wheelOrientation = THREE.Math.clamp( this.wheelOrientation - delta * this.WHEEL_ANGULAR_ACCELERATION, - this.MAX_WHEEL_ROTATION, this.MAX_WHEEL_ROTATION );
+			this.wheelOrientation = THREE.Math.clamp( this.wheelOrientation - delta * angAccel, - this.MAX_WHEEL_ROTATION, this.MAX_WHEEL_ROTATION );
 
 		}
 
@@ -182,7 +195,6 @@ THREE.Car = function () {
 		if ( ! ( controls.moveLeft || controls.moveRight ) ) {
 
 			if ( this.wheelOrientation > 0 ) {
-
 				this.wheelOrientation = THREE.Math.clamp( this.wheelOrientation - delta * this.WHEEL_ANGULAR_DECCELERATION, 0, this.MAX_WHEEL_ROTATION );
 
 			} else {
@@ -197,8 +209,18 @@ THREE.Car = function () {
 
 		var forwardDelta = this.speed * delta;
 
-        j('#testJquery').html((this.MAX_SPEED_MPH) * (this.speed / this.MAX_SPEED));
-
+        j('#testJquery').html(this.wheelOrientation);//(thi) * (this.speed / this.MAX_SPEED));
+		/*if(Math.random() < .001)
+		{
+			alert(this.root.position.x+","+this.root.position.z);
+		}*/
+	/*	if(!this.putToStart)
+			{
+			this.root.position.x = this.STARTING_X;
+			this.root.position.z = this.STARTING_Z;
+			this.putToStart = true;
+			}*/
+		
 		this.carOrientation += ( forwardDelta * this.STEERING_RADIUS_RATIO )* this.wheelOrientation;
 
 		// displacement
@@ -324,7 +346,6 @@ THREE.Car = function () {
 			scope.root.add( scope.frontRightWheelRoot );
 
 			// back left wheel
-
 			delta.multiply( scope.wheelOffset, new THREE.Vector3( s, s, -s ) );
 			delta.z -= scope.backWheelOffset;
 
@@ -371,5 +392,5 @@ THREE.Car = function () {
 	function circularEaseOut( k ) { return Math.sqrt( 1 - --k * k ); }
 	function sinusoidalEaseOut( k ) { return Math.sin( k * Math.PI / 2 ); }
 	function exponentialEaseOut( k ) { return k === 1 ? 1 : - Math.pow( 2, - 10 * k ) + 1; }
-
+		
 };

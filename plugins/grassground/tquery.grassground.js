@@ -25,7 +25,7 @@ tQuery.registerStatic('createGrassGround', function(opts){
 		//color	: 0x44FF44
 	})
 
-	// create the geometry	
+	// create the geometry
 	var geometry	= new THREE.PlaneGeometry( opts.width, opts.height, opts.segmentsW, opts.segmentsH);
 	// create the mesh
 	var mesh	= new THREE.Mesh(geometry, material);
