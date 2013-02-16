@@ -22,7 +22,7 @@ tQuery.registerStatic('createGrassGround', function(opts){
 
 	var material	= new THREE.MeshBasicMaterial({
 		map	: texture,
-		color	: 0x44FF44
+		//color	: 0x44FF44
 	})
 
 	// create the geometry	
