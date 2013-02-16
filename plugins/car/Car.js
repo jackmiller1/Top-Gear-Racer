@@ -196,9 +196,9 @@ THREE.Car = function () {
 		// car update
 
 		var forwardDelta = this.speed * delta;
-
+        
         j('#testJquery').html((this.MAX_SPEED_MPH) * (this.speed / this.MAX_SPEED));
-
+        
 		this.carOrientation += ( forwardDelta * this.STEERING_RADIUS_RATIO )* this.wheelOrientation;
 
 		// displacement
