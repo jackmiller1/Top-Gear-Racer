@@ -208,10 +208,6 @@ THREE.Car = function () {
 		// car update
 
 		var forwardDelta = this.speed * delta;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-
         j('#testJquery').html(this.wheelOrientation);//(thi) * (this.speed / this.MAX_SPEED));
 		/*if(Math.random() < .001)
 		{
@@ -223,23 +219,12 @@ THREE.Car = function () {
 			this.root.position.z = this.STARTING_Z;
 			this.putToStart = true;
 			}*/
-		
-=======
         
-        j('#testJquery').html((this.MAX_SPEED_MPH) * (this.speed / this.MAX_SPEED));
-        
->>>>>>> b5c5f9bcb1d70d1f95b14d5d356255921745355c
-=======
-
-        j('#testJquery').html((this.MAX_SPEED_MPH) * (this.speed / this.MAX_SPEED));
-=======
         var carMPH = (this.MAX_SPEED_MPH) * (this.speed / this.MAX_SPEED);
         
         j('#speed').html(carMPH);
->>>>>>> some stuff…i guess
 
->>>>>>> Revert "jack shit"
-		this.carOrientation += ( forwardDelta * this.STEERING_RADIUS_RATIO )* this.wheelOrientation;
+        this.carOrientation += ( forwardDelta * this.STEERING_RADIUS_RATIO )* this.wheelOrientation;
 
 		// displacement
 
