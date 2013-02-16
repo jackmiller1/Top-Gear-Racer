@@ -484,15 +484,25 @@ var j=$.noConflict(true);
         	color   : 0x000000
     	})).position(-20, 0, -147).rotateY(textRotateY).addTo(world);
 		
-		tQuery.createCube(11, 7, 11, new THREE.MeshLambertMaterial({
+		tQuery.createCube(11, 7, 10, new THREE.MeshLambertMaterial({
         	ambient : 0x777777,
         	color   : 0x000000
     	})).position(30, 0, -178).rotateY(textRotateY).addTo(world);
     	
-    	tQuery.createCube(11, 7, 11, new THREE.MeshLambertMaterial({
+    	tQuery.createCube(7, 4, 9, new THREE.MeshLambertMaterial({
         	ambient : 0x787878,
         	color   : 0x000000
     	})).position(7, 0, -168).rotateY(textRotateY).addTo(world);
+    	
+    	tQuery.createCube(11, 7, 11, new THREE.MeshLambertMaterial({
+        	ambient : 0x777777,
+        	color   : 0x000000
+    	})).position(-73, 0, -112).rotateY(textRotateY+0.2).addTo(world);
+    	
+    	tQuery.createCube(11, 7, 11, new THREE.MeshLambertMaterial({
+        	ambient : 0x787878,
+        	color   : 0x000000
+    	})).position(-122, 0, -84).rotateY(textRotateY+0.3).addTo(world);
 		
 		//Tires
 		tQuery.createCube(0.5,0.75,0.5, new THREE.MeshLambertMaterial({
