@@ -49,7 +49,7 @@ THREE.Car = function () {
 
 	this.STEERING_RADIUS_RATIO = 0.0023;
 
-	this.MAX_TILT_SIDES = 0.05;
+	this.MAX_TILT_SIDES = 0.2;
 	this.MAX_TILT_FRONTBACK = 0.015;
 
 	// internal control variables
@@ -272,7 +272,7 @@ THREE.Car = function () {
         j('#car_in_key').css('top', ((this.root.position.z/240)*103 )+98);
         
         var positionString = 'X: ' + this.root.position.x + '<br> Y: ' + this.root.position.y + '<br> Z: ' + this.root.position.z;
-        j('#testJquery').html(positionString);
+        //j('#testJquery').html(positionString);
 	};
 
 	// internal helper methods
