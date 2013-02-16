@@ -331,6 +331,11 @@ require(['tquery.pproc', 'tquery.skymap', 'tquery.keyboard', 'tquery.car'], func
 	});
 	
 	// ## Count Down
+	oldCarFRONT_ACCELERATION = car._car.FRONT_ACCELERATION;
+	oldCarBACK_ACCELERATION = car._car.BACK_ACCELERATION;
+	
+	car._car.FRONT_ACCELERATION = 0;
+	car._car.BACK_ACCELERATION = 0;
 	var countDownNumberThree = tQuery.createText("3").scaleBy(1/10);
 	countDownNumberThree.position(0,0.40,0);
 	countDownNumberThree.rotateY(3.1);
@@ -357,6 +362,8 @@ require(['tquery.pproc', 'tquery.skymap', 'tquery.keyboard', 'tquery.car'], func
 				countDownGo.position(0,0.40,0);
 				countDownGo.rotateY(3.1);
 				countDownGo.addTo(world);
+				car._car.FRONT_ACCELERATION = oldCarFRONT_ACCELERATION;
+				car._car.BACK_ACCELERATION = oldCarBACK_ACCELERATION;
 				startTimer();
 		}, 1000);
 			
