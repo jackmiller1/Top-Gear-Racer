@@ -189,6 +189,7 @@ require(['tquery.pproc', 'tquery.skymap', 'tquery.keyboard', 'tquery.car'], func
 	
 	
 
+
 	// Now we add the arches. In fact, they are torus which are half in the ground, so the visible part looks like an arche.
 	// We put 5 of them along the Z axis. they are all aligned to give an kindof road.
 	// ```.castShadow(true)``` make the 3D object as casting shadow. Always a nice trick to enhance realism.
@@ -202,5 +203,13 @@ require(['tquery.pproc', 'tquery.skymap', 'tquery.keyboard', 'tquery.car'], func
 	// for 40 lines of javascripts.
 	
 	// TODO here put the iframe of the demo
+
+	var countDownNumber = tQuery.createText("3").scaleBy(1/10);
+	countDownNumber.position(0,0.40,0);
+	countDownNumber.rotateY(3.1);
+	countDownNumber.addTo(world);
+
 })
-</script></body>
+</script>
+
+</body>
