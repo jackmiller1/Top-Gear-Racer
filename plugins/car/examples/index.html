@@ -427,12 +427,13 @@ var j=$.noConflict(true);
 		textX = 62.85;
 		textY = 0.40;
 		textZ = -184.57;
+		textRotateY = 2.2;
 		
 		car._car.FRONT_ACCELERATION = 0;
 		car._car.BACK_ACCELERATION = 0;
 		var countDownNumberThree = tQuery.createText("3").scaleBy(1/10);
 		countDownNumberThree.position(textX,textY,textZ);
-		countDownNumberThree.rotateY(3.1);
+		countDownNumberThree.rotateY(textRotateY);
 		countDownNumberThree.addTo(world);
 		
 		
@@ -440,30 +441,33 @@ var j=$.noConflict(true);
 			countDownNumberThree.removeFrom(world);
 			var countDownNumberTwo = tQuery.createText("2").scaleBy(1/10);
 			countDownNumberTwo.position(textX,textY,textZ);
-			countDownNumberTwo.rotateY(3.1);
+			countDownNumberTwo.rotateY(textRotateY);
 			countDownNumberTwo.addTo(world);
 			
 			window.setTimeout(function () {
 				countDownNumberTwo.removeFrom(world);
 				var countDownNumberOne = tQuery.createText("1").scaleBy(1/10);
 				countDownNumberOne.position(textX,textY,textZ);
-				countDownNumberOne.rotateY(3.1);
+				countDownNumberOne.rotateY(textRotateY);
 				countDownNumberOne.addTo(world);
 				
 				window.setTimeout(function () {
 					countDownNumberOne.removeFrom(world);
 					var countDownGo = tQuery.createText("GO!").scaleBy(1/10);
-					countDownGo.position(0,0.40,0);
-					countDownGo.rotateY(3.1);
+					countDownGo.position(textX,textY,textZ);
+					countDownGo.rotateY(textRotateY);
 					countDownGo.addTo(world);
 					car._car.FRONT_ACCELERATION = oldCarFRONT_ACCELERATION;
 					car._car.BACK_ACCELERATION = oldCarBACK_ACCELERATION;
 					startTimer();
+					window.setTimeout(function () {
+						countDownGo.removeFrom(world);
+					}, 1000);
 				}, 1000);
 				
 			}, 1000);
 			
-		}, 1000);
+		}, 2000);
 		
 		// Now we add the arches. In fact, they are torus which are half in the ground, so the visible part looks like an arche.
 		// We put 5 of them along the Z axis. they are all aligned to give an kindof road.
