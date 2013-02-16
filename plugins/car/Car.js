@@ -49,7 +49,7 @@ THREE.Car = function () {
 
 	this.STEERING_RADIUS_RATIO = 0.0023;
 
-	this.MAX_TILT_SIDES = 0.2;
+	this.MAX_TILT_SIDES = 0.1;
 	this.MAX_TILT_FRONTBACK = 0.015;
 
 	// internal control variables
