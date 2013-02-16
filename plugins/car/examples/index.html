@@ -25,12 +25,41 @@
 <script src="../../text/tquery.text.js"></script>
 
  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
- <script type="text/javascript">
- 
- </script>
+
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type='text/javascript'>
+      google.load('visualization', '1', {packages:['gauge']});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        data = google.visualization.arrayToDataTable([
+          ['Label', 'Value'],
+          ['Speed', 0]
+        ]);
+
+        options = {
+          width: 400, height: 120,
+          greenTo:200,
+          minorTicks: 5,
+          max:200
+        };
+
+        chart = new google.visualization.Gauge(document.getElementById('speedometer'));
+        chart.draw(data, options);
+        
+      }
+      
+    </script>
 
 
-<style>.container {
+<style>
+
+#speedometer {
+	position: absolute;
+	bottom: 5px;
+	right: 0px;
+}
+
+.container {
 	padding: 0px;
 	text-align: right;
 }
@@ -152,13 +181,14 @@ the other one with 6 steps and 6 digits*/
 }</style>
 
 <!-- Add a body and add a title -->
-<body style="margin:0;padding:0;overflow:'hidden';"><div id="info" style="z-index: 2">
+<body style="margin:0;padding:0;overflow:'hidden';"><div id="speedometer"></div><div id="info" style="z-index: 2">
 	
 	
 
 <!-- We will replicate the digits now -->
 <div class="container">
-	<p id="testJquery" style="color:white;">Jquery is not working</font></p>
+	<p id="testJquery" style="color:white;"></font></p>
+	<div id="speed" style="visibility:hidden;"></div>
 	<!-- time to add the controls -->
 	<input id="start" name="controls" type="radio" />
 	<input id="stop" name="controls" type="radio" />
@@ -221,7 +251,32 @@ function resetTimer() {
 </div><script>
 var j=$.noConflict(true);
  j(document).ready(function () {
+	google.load('visualization', '1', {packages:['gauge']});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        data = google.visualization.arrayToDataTable([
+          ['Label', 'Value'],
+          ['Speed', 0]
+        ]);
 
+        options = {
+          width: 400, height: 120,
+          greenTo:200,
+          minorTicks: 5,
+          max:200,
+          animation:{
+          	duration:1,
+          	easing:'linear'
+          	}
+        };
+        var chart = new google.visualization.Gauge(document.getElementById('speedometer'));
+        
+        setInterval(function() {
+        	var mph = Math.abs(Math.round(Number(j('#speed').html())));
+        	data.setValue(0, 1, mph);
+        	chart.draw(data, options);
+    	}, 50);
+      }
 	require(['tquery.pproc', 'tquery.skymap', 'tquery.keyboard', 'tquery.car'], function(){
 		// ## Let's start coding
 	
