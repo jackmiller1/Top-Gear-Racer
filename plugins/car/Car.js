@@ -266,7 +266,10 @@ THREE.Car = function () {
 
 		this.frontLeftWheelRoot.rotation.y = this.wheelOrientation;
 		this.frontRightWheelRoot.rotation.y = this.wheelOrientation;
-
+        
+        
+        j('#car_in_key').css('left', (this.root.position.x + 200));
+        j('#car_in_key').css('top', ((this.root.position.z/240)*103 )+98);
 	};
 
 	// internal helper methods

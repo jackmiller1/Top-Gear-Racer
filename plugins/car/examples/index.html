@@ -59,6 +59,23 @@
 	right: 0px;
 }
 
+#map_key {
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+}
+
+#car_in_key {
+	width:10px;
+	height:10px;
+	background:#FFFF00;
+	position:absolute;
+	-moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+}
+
 .container {
 	padding: 0px;
 	text-align: right;
@@ -181,7 +198,16 @@ the other one with 6 steps and 6 digits*/
 }</style>
 
 <!-- Add a body and add a title -->
-<body style="margin:0;padding:0;overflow:'hidden';"><div id="speedometer"></div><div id="info" style="z-index: 2">
+<body style="margin:0;padding:0;overflow:'hidden';">
+<div id="speedometer"></div>
+
+<div id="map_key">
+<div id="car_in_key"></div>
+<img src="./images/top_gear_track_key.jpeg">
+</div>
+
+
+<div id="info" style="z-index: 2">
 	
 	
 
@@ -260,7 +286,7 @@ var j=$.noConflict(true);
         ]);
 
         options = {
-          width: 400, height: 120,
+          width: 400, height: 180,
           greenTo:200,
           minorTicks: 5,
           max:200,
@@ -340,9 +366,9 @@ var j=$.noConflict(true);
 		// ["tQuery Plugin for Doom Characters"](http://learningthreejs.com/blog/2012/05/04/tquery-md2character-a-plugin-for-doom-characters/)
 		// post.
 		var ground	= tQuery.createGrassGround({
-			textureUrl	: '../../grassground/images/top_gear_track2.jpg',
+				textureUrl	: '../../grassground/images/top_gear_track2.jpg'
 		}).addTo(world).receiveShadow(true).scaleBy(500);
-		ground.get(0).material.map.anisotropy = 16
+		ground.get(0).material.map.anisotropy = 16;
 	
 
 		
@@ -405,42 +431,50 @@ var j=$.noConflict(true);
 		oldCarFRONT_ACCELERATION = car._car.FRONT_ACCELERATION;
 		oldCarBACK_ACCELERATION = car._car.BACK_ACCELERATION;
 		
+		textX = 62.85;
+		textY = 0.40;
+		textZ = -184.57;
+		textRotateY = 2.2;
+		
 		car._car.FRONT_ACCELERATION = 0;
 		car._car.BACK_ACCELERATION = 0;
 		var countDownNumberThree = tQuery.createText("3").scaleBy(1/10);
-		countDownNumberThree.position(0,0.40,0);
-		countDownNumberThree.rotateY(3.1);
+		countDownNumberThree.position(textX,textY,textZ);
+		countDownNumberThree.rotateY(textRotateY);
 		countDownNumberThree.addTo(world);
 		
 		
 		window.setTimeout(function () {
 			countDownNumberThree.removeFrom(world);
 			var countDownNumberTwo = tQuery.createText("2").scaleBy(1/10);
-			countDownNumberTwo.position(0,0.40,0);
-			countDownNumberTwo.rotateY(3.1);
+			countDownNumberTwo.position(textX,textY,textZ);
+			countDownNumberTwo.rotateY(textRotateY);
 			countDownNumberTwo.addTo(world);
 			
 			window.setTimeout(function () {
 				countDownNumberTwo.removeFrom(world);
 				var countDownNumberOne = tQuery.createText("1").scaleBy(1/10);
-				countDownNumberOne.position(0,0.40,0);
-				countDownNumberOne.rotateY(3.1);
+				countDownNumberOne.position(textX,textY,textZ);
+				countDownNumberOne.rotateY(textRotateY);
 				countDownNumberOne.addTo(world);
 				
 				window.setTimeout(function () {
 					countDownNumberOne.removeFrom(world);
 					var countDownGo = tQuery.createText("GO!").scaleBy(1/10);
-					countDownGo.position(0,0.40,0);
-					countDownGo.rotateY(3.1);
+					countDownGo.position(textX,textY,textZ);
+					countDownGo.rotateY(textRotateY);
 					countDownGo.addTo(world);
 					car._car.FRONT_ACCELERATION = oldCarFRONT_ACCELERATION;
 					car._car.BACK_ACCELERATION = oldCarBACK_ACCELERATION;
 					startTimer();
+					window.setTimeout(function () {
+						countDownGo.removeFrom(world);
+					}, 1000);
 				}, 1000);
 				
 			}, 1000);
 			
-		}, 1000);
+		}, 2000);
 		
 		// Now we add the arches. In fact, they are torus which are half in the ground, so the visible part looks like an arche.
 		// We put 5 of them along the Z axis. they are all aligned to give an kindof road.
