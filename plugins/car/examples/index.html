@@ -195,7 +195,21 @@ the other one with 6 steps and 6 digits*/
 
 <!-- Lets load up prefixfree first -->
 <script src="http://thecodeplayer.com/uploads/js/prefixfree.js" type="text/javascript"></script>
-	
+
+<script type="text/javascript">
+// Timer control functions
+function startTimer() {
+	document.getElementById("start").checked = true;
+}
+
+function stopTimer() {
+	document.getElementById("stop").checked = true;
+}
+
+function resetTimer() {
+	document.getElementById("reset").checked = true;
+}
+</script>
 	
 </div><script>
 
@@ -343,7 +357,7 @@ require(['tquery.pproc', 'tquery.skymap', 'tquery.keyboard', 'tquery.car'], func
 				countDownGo.position(0,0.40,0);
 				countDownGo.rotateY(3.1);
 				countDownGo.addTo(world);
-				document.getElementById("start").checked = true;
+				startTimer();
 		}, 1000);
 			
 		}, 1000);
