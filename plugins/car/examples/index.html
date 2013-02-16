@@ -37,7 +37,7 @@
         ]);
 
         options = {
-          width: 400, height: 120,
+          width: 400, height: 180,
           greenTo:200,
           minorTicks: 5,
           max:200
@@ -45,6 +45,12 @@
 
         chart = new google.visualization.Gauge(document.getElementById('speedometer'));
         chart.draw(data, options);
+        
+        setInterval(function() {
+        	var mph = Math.abs(Math.round(Number(j('#speed').html())));
+        	data.setValue(0, 1, mph);
+        	chart.draw(data, options);
+    	}, 50);
         
       }
       
@@ -291,32 +297,7 @@ function resetTimer() {
 </div><script>
 var j=$.noConflict(true);
  j(document).ready(function () {
-	google.load('visualization', '1', {packages:['gauge']});
-      google.setOnLoadCallback(drawChart);
-      function drawChart() {
-        data = google.visualization.arrayToDataTable([
-          ['Label', 'Value'],
-          ['Speed', 0]
-        ]);
-
-        options = {
-          width: 400, height: 180,
-          greenTo:200,
-          minorTicks: 5,
-          max:200,
-          animation:{
-          	duration:1,
-          	easing:'linear'
-          	}
-        };
-        var chart = new google.visualization.Gauge(document.getElementById('speedometer'));
-        
-        setInterval(function() {
-        	var mph = Math.abs(Math.round(Number(j('#speed').html())));
-        	data.setValue(0, 1, mph);
-        	chart.draw(data, options);
-    	}, 50);
-      }
+	
 	require(['tquery.pproc', 'tquery.skymap', 'tquery.keyboard', 'tquery.car'], function(){
 		// ## Let's start coding
 	
