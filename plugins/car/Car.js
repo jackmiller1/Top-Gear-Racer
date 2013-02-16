@@ -32,21 +32,20 @@ THREE.Car = function () {
 	this.STARTING_Z = -184.57;
 	this.STARTING_DIRECTION = (-53/180)*Math.PI;
 	
-	this.MAX_SPEED = 5000;
+	this.MAX_SPEED = 8000;
 	this.MAX_REVERSE_SPEED = -1500;
 
     this.MAX_SPEED_MPH = 200;
 
-	this.MAX_WHEEL_ROTATION = .5;
-	this.WHEEL_ANGULAR_ACCELERATION = .5;
-	this.MIN_ANGLUAR_ACCELERATION = .1;
+	this.MAX_WHEEL_ROTATION = .4;
+	this.WHEEL_ANGULAR_ACCELERATION = .4;
+	this.MIN_ANGLUAR_ACCELERATION = .01;
 
-	this.FRONT_ACCELERATION = 2500;
+	this.FRONT_ACCELERATION = 1000;
 	this.BACK_ACCELERATION = 5000;
 
-
-	this.FRONT_DECCELERATION = 750;
-	this.WHEEL_ANGULAR_DECCELERATION = 1.0;
+	this.FRONT_DECCELERATION = 2000;
+	this.WHEEL_ANGULAR_DECCELERATION = 20.0;
 
 	this.STEERING_RADIUS_RATIO = 0.0023;
 
@@ -135,13 +134,15 @@ THREE.Car = function () {
 
 	this.updateCarModel = function ( delta, controls ) {
 
-		// speed and wheels based on controls
-
+		
 		if ( controls.moveForward ) {
-
-			this.speed = THREE.Math.clamp( this.speed + delta * this.FRONT_ACCELERATION, this.MAX_REVERSE_SPEED, this.MAX_SPEED );
-			this.acceleration = THREE.Math.clamp( this.acceleration + delta, -1, 1 );
-
+			accel = this.FRONT_ACCELERATION;
+			if(Math.abs(this.speed /this.MAX_SPEED) < .5)
+				accel = accel / Math.abs((this.speed +1)/this.MAX_SPEED);
+			if(this.wheelOrientation < .2 || Math.abs(this.speed /this.MAX_SPEED) < .35 ){
+				this.speed = THREE.Math.clamp( this.speed + delta * accel, this.MAX_REVERSE_SPEED, this.MAX_SPEED );
+				this.acceleration = THREE.Math.clamp( this.acceleration + delta, -1, 1 );
+			}
 		}
 
 		if ( controls.moveBackward ) {
@@ -150,14 +151,16 @@ THREE.Car = function () {
 			this.acceleration = THREE.Math.clamp( this.acceleration - delta, -1, 1 );
 
 		}
-		angAccel = this.WHEEL_ANGULAR_ACCELERATION * (this.wheelOrientation / this.MAX_WHEEL_ROTATION);
-		if(angAccel < this.MIN_ANGLUAR_ACCELERATION)
-			angAccel = this.MIN_ANGLUAR_ACCELERATION;
 		
+		angAccel = this.WHEEL_ANGULAR_ACCELERATION;
+		//if(Math.abs(this.speed /this.MAX_SPEED) > .7)
+		angAccel = angAccel *  Math.pow((1.6-Math.abs(this.speed /this.MAX_SPEED)), 2);
+	/*	
+		if(controls.backWard)
+			angAccel = angAccel * 1.3;
+		*/
 		
-		
-		if ( controls.moveLeft ) {
-
+		if ( controls.moveLeft ) {				
 			this.wheelOrientation = THREE.Math.clamp( this.wheelOrientation + delta * angAccel, - this.MAX_WHEEL_ROTATION, this.MAX_WHEEL_ROTATION );
 
 		}

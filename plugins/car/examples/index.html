@@ -344,6 +344,8 @@ var j=$.noConflict(true);
 		}).addTo(world).receiveShadow(true).scaleBy(500);
 		ground.get(0).material.map.anisotropy = 16
 	
+
+		
 		// ## The Car
 		// First we instanciate a ```tQuery.Car``` object with ```tQuery.createCar()```.
 		// It will load the models, then material will be setup.
@@ -360,6 +362,11 @@ var j=$.noConflict(true);
 		// The faster you go, the further you look. This is always nice to see what is coming at you :)
 		tQuery.createCarCameraControls(car, world);
 	
+		var o = tQuery.createCube();
+		o.position(70, 0, -180);
+		o.setBasicMaterial().color(0xFFffff);
+		o.addTo(world);
+
 		// ## Car Controls
 	
 		// Now we hook the controls to the car. This determines how the player will controls the
