@@ -388,10 +388,10 @@ var j=$.noConflict(true);
 		// The faster you go, the further you look. This is always nice to see what is coming at you :)
 		tQuery.createCarCameraControls(car, world);
 	
-		var o = tQuery.createCube();
-		o.position(70, 0, -180);
-		o.setBasicMaterial().color(0xFFffff);
-		o.addTo(world);
+		// var o = tQuery.createCube();
+// 		o.position(70, 0, -180);
+// 		o.setBasicMaterial().color(0xFFffff);
+// 		o.addTo(world);
 
 		// ## Car Controls
 	
@@ -475,6 +475,17 @@ var j=$.noConflict(true);
 			}, 1000);
 			
 		}, 2000);
+		
+		// ##Create Scenery
+		
+		//Top Gear Studio
+		tQuery.createCube(10, 5, 11).position(-20, 0, -147).rotateY(textRotateY).addTo(world);
+		
+		//Tires
+		tQuery.createCube(0.5,0.75,0.5, new THREE.MeshLambertMaterial({
+        	ambient : 0x000000,
+        	color   : 0x000000
+    	})).position(-68, 0, -40).rotateY(textRotateY).addTo(world);
 		
 		// Now we add the arches. In fact, they are torus which are half in the ground, so the visible part looks like an arche.
 		// We put 5 of them along the Z axis. they are all aligned to give an kindof road.
