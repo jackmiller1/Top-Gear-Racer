@@ -118,9 +118,11 @@ require(['tquery.pproc', 'tquery.skymap', 'tquery.keyboard', 'tquery.car'], func
 	// It can be controlled by the [device orientation](http://dev.w3.org/geo/api/spec-source-orientation.html).
 	// We already talked device orientation in game in
 	// [this post](http://learningthreejs.com/blog/2011/09/20/lets-make-a-3D-game-device-orientation/).
-	var hasTouchEvent	= "ontouchstart" in window;
-	if( hasTouchEvent )	car.hookDeviceOrientation();
-	else			car.hookKeyboard();
+	
+	// var hasTouchEvent	= "ontouchstart" in window;
+// 	if( hasTouchEvent )	car.hookDeviceOrientation();
+// 	else			car.hookKeyboard();
+	car.hookKeyboard();
 	
 	// Now maybe you wonder "why this devices orientation" ?
 	// I ported tQuery to IOS. So since tQuery r49.1, it is possible to run
@@ -145,10 +147,10 @@ require(['tquery.pproc', 'tquery.skymap', 'tquery.keyboard', 'tquery.car'], func
 	// Now we add the arches. In fact, they are torus which are half in the ground, so the visible part looks like an arche.
 	// We put 5 of them along the Z axis. they are all aligned to give an kindof road.
 	// ```.castShadow(true)``` make the 3D object as casting shadow. Always a nice trick to enhance realism.
-	for(var i = 0; i < 5; i++){
-		tQuery.createTorus(1.25-0.25, 0.25, 8, 6*4, material).addTo(world)
-			.castShadow(true).translateZ( 2 + i * 5 );		
-	}
+	// for(var i = 0; i < 5; i++){
+// 		tQuery.createTorus(1.25-0.25, 0.25, 8, 6*4, material).addTo(world)
+// 			.castShadow(true).translateZ( 2 + i * 5 );		
+// 	}
 	
 	// And we are **DONE**! We got a nice looking car, driving on grass with a sun set. It is 
 	// controlled by keyboard and the camera controls is suitable for a game. Not bad
