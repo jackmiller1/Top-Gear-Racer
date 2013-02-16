@@ -29,6 +29,8 @@ THREE.Car = function () {
 	this.MAX_SPEED = 2200;
 	this.MAX_REVERSE_SPEED = -1500;
 
+    this.MAX_SPEED_MPH = 200;
+
 	this.MAX_WHEEL_ROTATION = 0.6;
 
 	this.FRONT_ACCELERATION = 1250;
@@ -194,6 +196,8 @@ THREE.Car = function () {
 		// car update
 
 		var forwardDelta = this.speed * delta;
+
+        j('#testJquery').html((this.MAX_SPEED_MPH) * (this.speed / this.MAX_SPEED));
 
 		this.carOrientation += ( forwardDelta * this.STEERING_RADIUS_RATIO )* this.wheelOrientation;
 
